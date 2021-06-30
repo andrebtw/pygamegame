@@ -20,6 +20,7 @@ data = data_file.readlines() #Making a list from every line
 
 width = int(re.sub("[^0-9]", "", data[1])) #re.sub("[^0-9]", "",") removes all non numeric characters from the data
 height = int(re.sub("[^0-9]", "", data[2]))
+fps = int(re.sub("[^0-9]", "", data[3]))
 
 if "FALSE" in data[0]:
     fullscreen=False
@@ -44,17 +45,16 @@ def scale_y (y):
 
 
 while running == True :
-    surface = pygame.display.get_surface() #get the surface of the current active display
-    pygame.draw.rect(screen, (255, 0, 0), pygame.Rect(500*surface.get_width()/1920,500*surface.get_height()/1080,500*surface.get_width()/1920,500*surface.get_height()/1080))
     for event in pygame.event.get() :
         if event.type == QUIT :
             running = False
 
-        
-    
+    menu() 
     pygame.display.update()
-    main_clock.tick(60)
-    menu()
+    main_clock.tick(fps)
+
+
+
 
 
 pygame.quit()
