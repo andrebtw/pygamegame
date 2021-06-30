@@ -3,7 +3,9 @@ import pygame
 from pygame.locals import *
 import time
 import random
-import math 
+import math
+
+from files.python.menu import menu
 
 pygame.init() #Initalising pygame
 
@@ -19,7 +21,8 @@ while running == True :
         if event.type == QUIT :
             running = False
     
-    
+    menu.menu()
+
 
 
 pygame.quit()
