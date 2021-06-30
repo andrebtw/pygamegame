@@ -23,7 +23,7 @@ height = int(re.sub("[^0-9]", "", data[2]))
 
 if "FALSE" in data[0]:
     fullscreen=False
-    screen = pygame.display.set_mode((width, height), pygame.RESIZABLE)
+    screen = pygame.display.set_mode((width, height))
 else : 
     fullscreen=True
     screen = pygame.display.set_mode((width, height), pygame.FULLSCREEN)
@@ -32,14 +32,25 @@ else :
 main_clock = pygame.time.Clock()
 running = True
 
+def scale_x (x):
+    surface = pygame.display.get_surface() #get the surface of the current active display
+    x=(x*surface.get_width())/1920
+    x = int (x)
+
+def scale_y (y):
+    surface = pygame.display.get_surface() #get the surface of the current active display
+    y=(y*surface.get_height())/1080
+    y = int (y)
+
 
 while running == True :
+    surface = pygame.display.get_surface() #get the surface of the current active display
+    pygame.draw.rect(screen, (255, 0, 0), pygame.Rect(500*surface.get_width()/1920,500*surface.get_height()/1080,500*surface.get_width()/1920,500*surface.get_height()/1080))
     for event in pygame.event.get() :
         if event.type == QUIT :
             running = False
 
-        if event.type == VIDEORESIZE:
-            screen = pygame.display.set_mode((event.w, event.h), pygame.RESIZABLE)
+        
     
     pygame.display.update()
     main_clock.tick(60)
