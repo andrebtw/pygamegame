@@ -12,7 +12,7 @@ pygame.init() #Initalising pygame
 width = 1920
 height = 1080
 
-screen = pygame.display.set_mode((width, height))
+screen = pygame.display.set_mode((width, height), pygame.RESIZABLE)
 
 running = True
 
@@ -21,7 +21,7 @@ while running == True :
         if event.type == QUIT :
             running = False
     
-    menu.menu()
+    menu()
 
 
 
