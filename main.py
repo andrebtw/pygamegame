@@ -9,7 +9,7 @@ import re
 
 
 #Importing python files
-from files.python.menu import menu
+from menu import menu
 #from files.python.game import game
 
 pygame.init() #Initalising pygame
@@ -37,11 +37,13 @@ def scale_x (x):
     surface = pygame.display.get_surface() #get the surface of the current active display
     x=(x*surface.get_width())/1920
     x = int (x)
+    return x
 
 def scale_y (y):
     surface = pygame.display.get_surface() #get the surface of the current active display
     y=(y*surface.get_height())/1080
     y = int (y)
+    return y
 
 
 while running == True :
