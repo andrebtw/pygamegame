@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+
+
 #Importing libraries
 import pygame
 from pygame.locals import *
@@ -14,7 +17,7 @@ from menu import menu
 
 pygame.init() #Initalising pygame
 
-data_file = open("files\data\data.txt", "r") #Opening the data file
+data_file = open("files/data/data.txt", "r") #Opening the data file
 data = data_file.readlines() #Making a list from every line 
 
 

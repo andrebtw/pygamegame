@@ -8,7 +8,7 @@ import sys
 import re
 
 
-data_file = open("files\data\data.txt", "r") #Opening the data file
+data_file = open("files/data/data.txt", "r") #Opening the data file
 data = data_file.readlines() #Making a list from every line 
 
 pygame.init()
