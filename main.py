@@ -27,7 +27,7 @@ fps = int(re.sub("[^0-9]", "", data[3]))
 
 if "FALSE" in data[0]:
     fullscreen=False
-    screen = pygame.display.set_mode((width, height))
+    screen = pygame.display.set_mode((width, height), pygame.RESIZABLE)
 else : 
     fullscreen=True
     screen = pygame.display.set_mode((width, height), pygame.FULLSCREEN)
