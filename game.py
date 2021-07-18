@@ -47,7 +47,7 @@ def game():
         for event in pygame.event.get() :
             if event.type == QUIT :
                 running = False
-                
+    
         pygame.display.update()
         main_clock.tick(fps)
     

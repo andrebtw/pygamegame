@@ -117,6 +117,7 @@ def menu ():
                 settings()
 
             if text_play_rect.collidepoint(mouse_pos):
+                running = False
                 game()
 
             if text_exit_rect.collidepoint(mouse_pos):
