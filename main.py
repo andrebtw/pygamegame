@@ -3,7 +3,6 @@
 
 #Importing python files
 from menu import menu
-#from files.python.game import game
 
 
 def main():
