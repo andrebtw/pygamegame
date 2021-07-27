@@ -19,12 +19,17 @@ fps = int(re.sub("[^0-9]", "", data[3]))
 width = int(re.sub("[^0-9]", "", data[1])) #re.sub("[^0-9]", "",") removes all non numeric characters from the data
 height = int(re.sub("[^0-9]", "", data[2]))
 
+
+
+
 if "FALSE" in data[0]:
     fullscreen=False
     screen = pygame.display.set_mode((width, height))
 else : 
     fullscreen=True
     screen = pygame.display.set_mode((width, height), pygame.FULLSCREEN)
+
+
 
 
 
@@ -46,15 +51,132 @@ def scale_y (y):
 
 
 
+
 ###SETTINGS###
-def settings():
+def audio_settings():
     screen.fill((0,0,0))
     running = True
+
     while running == True :
         for event in pygame.event.get() :
             if event.type == QUIT :
                 running = False
-                    
+            
+        pygame.display.update()
+        main_clock.tick(fps)
+
+
+
+
+def video_settings():
+    screen.fill((0,0,0))
+    running = True
+
+    while running == True :
+        for event in pygame.event.get() :
+            if event.type == QUIT :
+                running = False
+            
+        pygame.display.update()
+        main_clock.tick(fps)
+
+
+
+def about_settings():
+    screen.fill((0,0,0))
+    running = True
+
+    while running == True :
+        for event in pygame.event.get() :
+            if event.type == QUIT :
+                running = False
+
+        pygame.display.update()
+        main_clock.tick(fps)
+
+
+
+
+def settings():
+    screen.fill((0,0,0))
+    running = True
+
+     ###Defining fonts###
+    neon_font_text = pygame.font.Font("files/assets/fonts/NEON GLOW.otf", scale_y(100))
+
+
+    ###Making the texts
+    audio_text = neon_font_text.render("AUDIO", True, (199,79,230))
+    video_text = neon_font_text.render("VIDEO", True, (84, 79, 240))
+    about_text = neon_font_text.render("ABOUT", True, (199,79,230))
+
+
+    while running == True :
+        for event in pygame.event.get() :
+            if event.type == QUIT :
+                running = False
+        
+
+            surface = pygame.display.get_surface() #get the surface of the current active display
+
+            ###Defining fonts positions on the screen###
+            audio_text_pos = (scale_x(960) - audio_text.get_width() // 2, scale_y(200))
+            video_text_pos = (scale_x(960) - video_text.get_width() // 2, scale_y(462))
+            about_text_pos = (scale_x(960) - about_text.get_width() // 2, scale_y(724)) 
+            
+            ###Displaying the texts###
+            screen.blit(audio_text,(audio_text_pos))
+            screen.blit(video_text,(video_text_pos))
+            screen.blit(about_text,(about_text_pos))
+
+            ###Getting the rectangle position of each text###
+            audio_text_rect = audio_text.get_rect()
+            audio_text_rect.x = scale_x(960) - audio_text.get_width() // 2
+            audio_text_rect.y = scale_y(200)
+
+            video_text_rect = video_text.get_rect()
+            video_text_rect.x = scale_x(960) - video_text.get_width() // 2
+            video_text_rect.y = scale_y(462)
+
+            about_text_rect = about_text.get_rect()
+            about_text_rect.x = scale_x(960) - about_text.get_width() // 2
+            about_text_rect.y = scale_y(724)
+
+            mouse_pos = pygame.mouse.get_pos() # Get mouse position
+
+
+            if audio_text_rect.collidepoint(mouse_pos): # Check if position is in the rect
+                print("Audio hovered")
+                audio_text = neon_font_text.render("AUDIO", True, (255,255,255))
+            else:
+                audio_text = neon_font_text.render("AUDIO", True, (199,79,230))
+
+            if video_text_rect.collidepoint(mouse_pos): # Check if position is in the rect
+                print("Video hovered")
+                video_text = neon_font_text.render("VIDEO", True, (255, 255, 255))
+            else:
+                video_text = neon_font_text.render("VIDEO", True, (84, 79, 240))
+
+            if about_text_rect.collidepoint(mouse_pos): # Check if position is in the rect
+                print("About hovered")
+                about_text = neon_font_text.render("ABOUT", True, (255,255,255))
+            else:
+                about_text = neon_font_text.render("ABOUT", True, (199,79,230))
+
+
+            if event.type == pygame.MOUSEBUTTONUP:
+                if audio_text_rect.collidepoint(mouse_pos):
+                    running = False
+                    audio_settings()
+
+                if video_text_rect.collidepoint(mouse_pos):
+                    running = False
+                    video_settings()
+
+                if about_text_rect.collidepoint(mouse_pos):
+                    running = False
+                    about_settings()
+
         pygame.display.update()
         main_clock.tick(fps)
 
@@ -70,9 +192,9 @@ def game():
             if event.type == QUIT :
                 running = False
 
-
-        pygame.display.update()
-        main_clock.tick(fps)
+    
+            pygame.display.update()
+            main_clock.tick(fps)
 
 
 
@@ -103,64 +225,64 @@ def main ():
             if event.type == QUIT :
                 running = False
         
-        surface = pygame.display.get_surface() #get the surface of the current active display
+            surface = pygame.display.get_surface() #get the surface of the current active display
 
-        ###Defining fonts positions on the screen###
-        text_settings_pos = (scale_x(960) - text_settings.get_width() // 2, scale_y(200))
-        text_play_pos = (scale_x(960) - text_play.get_width() // 2, scale_y(462))
-        text_exit_pos = (scale_x(960) - text_exit.get_width() // 2, scale_y(774)) 
-        
-        ###Displaying the texts###
-        screen.blit(text_settings,(text_settings_pos))
-        screen.blit(text_play,(text_play_pos))
-        screen.blit(text_exit,(text_exit_pos))
-        
-        ###Getting the rectangle position of each text###
-        text_settings_rect = text_settings.get_rect()
-        text_settings_rect.x = scale_x(960) - text_settings.get_width() // 2
-        text_settings_rect.y = scale_y(200)
+            ###Defining fonts positions on the screen###
+            text_settings_pos = (scale_x(960) - text_settings.get_width() // 2, scale_y(200))
+            text_play_pos = (scale_x(960) - text_play.get_width() // 2, scale_y(462))
+            text_exit_pos = (scale_x(960) - text_exit.get_width() // 2, scale_y(774)) 
+            
+            ###Displaying the texts###
+            screen.blit(text_settings,(text_settings_pos))
+            screen.blit(text_play,(text_play_pos))
+            screen.blit(text_exit,(text_exit_pos))
+            
+            ###Getting the rectangle position of each text###
+            text_settings_rect = text_settings.get_rect()
+            text_settings_rect.x = scale_x(960) - text_settings.get_width() // 2
+            text_settings_rect.y = scale_y(200)
 
-        text_play_rect = text_play.get_rect()
-        text_play_rect.x = scale_x(960) - text_play.get_width() // 2
-        text_play_rect.y = scale_y(462)
+            text_play_rect = text_play.get_rect()
+            text_play_rect.x = scale_x(960) - text_play.get_width() // 2
+            text_play_rect.y = scale_y(462)
 
-        text_exit_rect = text_exit.get_rect()
-        text_exit_rect.x = scale_x(960) - text_exit.get_width() // 2
-        text_exit_rect.y = scale_y(774)
+            text_exit_rect = text_exit.get_rect()
+            text_exit_rect.x = scale_x(960) - text_exit.get_width() // 2
+            text_exit_rect.y = scale_y(774)
 
-        mouse_pos = pygame.mouse.get_pos() # Get mouse position
+            mouse_pos = pygame.mouse.get_pos() # Get mouse position
 
 
-        if text_settings_rect.collidepoint(mouse_pos): # Check if position is in the rect
-            print("Settings hovered")
-            text_settings = neon_font_settings_exit.render("SETTINGS", True, (255,255,255))
-        else:
-            text_settings = neon_font_settings_exit.render("SETTINGS", True, (199,79,230))
+            if text_settings_rect.collidepoint(mouse_pos): # Check if position is in the rect
+                print("Settings hovered")
+                text_settings = neon_font_settings_exit.render("SETTINGS", True, (255,255,255))
+            else:
+                text_settings = neon_font_settings_exit.render("SETTINGS", True, (199,79,230))
 
-        if text_play_rect.collidepoint(mouse_pos): # Check if position is in the rect
-            print("Play hovered")
-            text_play = neon_font_play.render("PLAY", True, (255, 255, 255))
-        else:
-            text_play = neon_font_play.render("PLAY", True, (84, 79, 240))
+            if text_play_rect.collidepoint(mouse_pos): # Check if position is in the rect
+                print("Play hovered")
+                text_play = neon_font_play.render("PLAY", True, (255, 255, 255))
+            else:
+                text_play = neon_font_play.render("PLAY", True, (84, 79, 240))
 
-        if text_exit_rect.collidepoint(mouse_pos): # Check if position is in the rect
-            print("Quit hovered")
-            text_exit = neon_font_settings_exit.render("QUIT", True, (255,255,255))
-        else:
-            text_exit = neon_font_settings_exit.render("QUIT", True, (199,79,230))
+            if text_exit_rect.collidepoint(mouse_pos): # Check if position is in the rect
+                print("Quit hovered")
+                text_exit = neon_font_settings_exit.render("QUIT", True, (255,255,255))
+            else:
+                text_exit = neon_font_settings_exit.render("QUIT", True, (199,79,230))
 
-        
-        if event.type == pygame.MOUSEBUTTONUP:
-            if text_settings_rect.collidepoint(mouse_pos):
-                running = False
-                settings()
+            
+            if event.type == pygame.MOUSEBUTTONUP:
+                if text_settings_rect.collidepoint(mouse_pos):
+                    running = False
+                    settings()
 
-            if text_play_rect.collidepoint(mouse_pos):
-                running = False
-                game()
+                if text_play_rect.collidepoint(mouse_pos):
+                    running = False
+                    game()
 
-            if text_exit_rect.collidepoint(mouse_pos):
-                running = False
+                if text_exit_rect.collidepoint(mouse_pos):
+                    running = False
 
         pygame.display.update()
         main_clock.tick(fps)
