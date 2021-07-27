@@ -2,13 +2,13 @@
 
 
 #Importing python files
-from menu import menu
+from game import main
 
 
-def main():
-    menu()
+def start():
+    main()
 
 
 if __name__ == "__main__":
-    main()
+    start()
 
