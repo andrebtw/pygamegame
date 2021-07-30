@@ -109,7 +109,7 @@ def settings():
     audio_text = neon_font_text.render("AUDIO", True, (199,79,230))
     video_text = neon_font_text.render("VIDEO", True, (84, 79, 240))
     about_text = neon_font_text.render("ABOUT", True, (199,79,230))
-
+    back_text = neon_font_text.render("BACK", True, (199,79,230))
 
     while running == True :
         for event in pygame.event.get() :
@@ -123,11 +123,13 @@ def settings():
             audio_text_pos = (scale_x(960) - audio_text.get_width() // 2, scale_y(200))
             video_text_pos = (scale_x(960) - video_text.get_width() // 2, scale_y(462))
             about_text_pos = (scale_x(960) - about_text.get_width() // 2, scale_y(724)) 
+            back_text_pos = (scale_x(125), scale_y(75))
             
             ###Displaying the texts###
             screen.blit(audio_text,(audio_text_pos))
             screen.blit(video_text,(video_text_pos))
             screen.blit(about_text,(about_text_pos))
+            screen.blit(back_text,(back_text_pos))
 
             ###Getting the rectangle position of each text###
             audio_text_rect = audio_text.get_rect()
@@ -141,6 +143,10 @@ def settings():
             about_text_rect = about_text.get_rect()
             about_text_rect.x = scale_x(960) - about_text.get_width() // 2
             about_text_rect.y = scale_y(724)
+
+            back_text_rect = back_text.get_rect()
+            back_text_rect.x = scale_x(125)
+            back_text_rect.y = scale_y(75)
 
             mouse_pos = pygame.mouse.get_pos() # Get mouse position
 
@@ -162,6 +168,11 @@ def settings():
                 about_text = neon_font_text.render("ABOUT", True, (255,255,255))
             else:
                 about_text = neon_font_text.render("ABOUT", True, (199,79,230))
+            if back_text_rect.collidepoint(mouse_pos): # Check if position is in the rect
+                print("Back hovered")
+                back_text = neon_font_text.render("BACK", True, (255,255,255))
+            else:
+                back_text = neon_font_text.render("BACK", True, (199,79,230))
 
 
             if event.type == pygame.MOUSEBUTTONUP:
@@ -176,6 +187,10 @@ def settings():
                 if about_text_rect.collidepoint(mouse_pos):
                     running = False
                     about_settings()
+                
+                if back_text_rect.collidepoint(mouse_pos):
+                    running = False
+                    main()
 
         pygame.display.update()
         main_clock.tick(fps)
@@ -195,11 +210,6 @@ def game():
     
             pygame.display.update()
             main_clock.tick(fps)
-
-
-
-
-
 
 
 
