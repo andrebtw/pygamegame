@@ -21,15 +21,12 @@ height = int(re.sub("[^0-9]", "", data[2]))
 
 
 
-
 if "FALSE" in data[0]:
     fullscreen=False
     screen = pygame.display.set_mode((width, height))
 else : 
     fullscreen=True
     screen = pygame.display.set_mode((width, height), pygame.FULLSCREEN)
-
-
 
 
 
@@ -44,9 +41,6 @@ def scale_y (y):
     y=(y*surface.get_height())/1080
     y = int (y)
     return y
-
-
-
 
 
 
@@ -96,12 +90,11 @@ def about_settings():
 
 
 
-
 def settings():
     screen.fill((0,0,0))
     running = True
 
-     ###Defining fonts###
+    ###Defining fonts###
     neon_font_text = pygame.font.Font("files/assets/fonts/NEON GLOW.otf", scale_y(100))
 
 
@@ -198,23 +191,6 @@ def settings():
 
 
 
-###GAME###
-def game():
-    screen.fill((0,0,0))
-    running = True
-    while running == True :
-        for event in pygame.event.get() :
-            if event.type == QUIT :
-                running = False
-
-    
-            pygame.display.update()
-            main_clock.tick(fps)
-
-
-
-
-
 ###MENU###
 
 def main ():
@@ -296,6 +272,30 @@ def main ():
 
         pygame.display.update()
         main_clock.tick(fps)
+
+
+
+
+
+###GAME###
+def game():
+    screen.fill((0,0,0))
+    running = True
+    while running == True :
+        for event in pygame.event.get() :
+            if event.type == QUIT :
+                running = False
+
+    
+            pygame.display.update()
+            main_clock.tick(fps)
+
+
+
+
+
+
+
 
 
 
