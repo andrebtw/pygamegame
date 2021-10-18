@@ -12,10 +12,13 @@ data = data_file.readlines()  # Making a list from every line
 
 pygame.init()
 main_clock = pygame.time.Clock()
+
 fps = int(re.sub("[^0-9]", "", data[3]))
 
 width = int(re.sub("[^0-9]", "", data[1]))  # re.sub("[^0-9]", "",") removes all non numeric characters from the data
 height = int(re.sub("[^0-9]", "", data[2]))
+
+points = int(re.sub("[^0-9]", "", data[6]))
 
 ###COLORS###
 blue1 = (84, 79, 240)
@@ -379,7 +382,6 @@ def main():
 
             surface = pygame.display.get_surface()  # get the surface of the current active display
 
-
             ###Getting the rectangle position of each text###
             text_settings_rect = text_settings.get_rect()
             text_settings_rect.x = scale_x(960) - text_settings.get_width() // 2
@@ -431,19 +433,23 @@ def main():
 
 
 ###GAME###
+def player_choice():
+    # Make a menu where the user can choose what player to choose, each player will have different skin and
+    # different speed, damage health etc...
+    pass
+
+
+def main_game():
+    pass
 
 
 def game():
     screen.fill((0, 0, 0))
-    running = True
-    while running:
-        ##DISPLAY FIRST IMAGE
-        for event in pygame.event.get():
-            if event.type == QUIT:
-                running = False
+    update()
 
-        pygame.display.update()
-        main_clock.tick(fps)
+    player_choice()
+
+    main_game()
 
 
 if __name__ == "__main__":
