@@ -21,8 +21,8 @@ height = int(re.sub("[^0-9]", "", data[2]))
 points = int(re.sub("[^0-9]", "", data[6]))
 
 ###COLORS###
-red2 = (84, 79, 240)
-red1 = (199, 79, 230)
+red2 = (220, 10, 10)
+red1 = (128, 14, 14)
 white = (255, 255, 255)
 
 if "FALSE" in data[0]:
@@ -45,6 +45,10 @@ def scale_y(y):
     y = (y * surface.get_height()) / 1080
     y = int(y)
     return y
+
+
+def scale_fps(fps):
+    pass
 
 
 def update():
@@ -428,7 +432,6 @@ def main():
                     running = False
 
         update()
-        pygame.display.update()
         main_clock.tick(fps)
 
 
@@ -436,7 +439,48 @@ def main():
 def player_choice():
     # Make a menu where the user can choose what player to choose, each player will have different skin and
     # different speed, damage health etc...
-    pass
+
+    running = True
+
+    ###Defining fonts###
+    neon_font_text = pygame.font.Font("files/assets/fonts/NEON GLOW.otf", scale_y(125))
+
+    ###Making the texts
+    start_text = neon_font_text.render("START", True, red1)
+
+    while running:
+        ###Defining fonts positions on the screen###
+        start_text_pos = (scale_x(960) - start_text.get_width() // 2, scale_y(900))
+
+        # Displaying the text
+        screen.blit(start_text, start_text_pos)
+
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                running = False
+                quit()
+
+            surface = pygame.display.get_surface()  # get the surface of the current active display
+
+            ###Getting the rectangle position of each text###
+            start_text_rect = start_text.get_rect()
+            start_text_rect.x = scale_x(960) - start_text.get_width() // 2
+            start_text_rect.y = scale_y(900)
+
+            mouse_pos = pygame.mouse.get_pos()  # Get mouse position
+
+            if start_text_rect.collidepoint(mouse_pos):  # Check if position is in the rect
+                print("Start hovered")
+                start_text = neon_font_text.render("START", True, white)
+            else:
+                start_text = neon_font_text.render("START", True, red1)
+
+            if event.type == pygame.MOUSEBUTTONUP:
+                if start_text_rect.collidepoint(mouse_pos):
+                    running = False
+
+        update()
+        main_clock.tick(fps)
 
 
 def main_game():
@@ -450,7 +494,3 @@ def game():
     player_choice()
 
     main_game()
-
-
-if __name__ == "__main__":
-    main()
