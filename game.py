@@ -24,6 +24,7 @@ points = int(re.sub("[^0-9]", "", data[6]))
 red2 = (220, 10, 10)
 red1 = (128, 14, 14)
 white = (255, 255, 255)
+black = (0, 0, 0)
 
 if "FALSE" in data[0]:
     fullscreen = False
@@ -478,13 +479,44 @@ def player_choice():
             if event.type == pygame.MOUSEBUTTONUP:
                 if start_text_rect.collidepoint(mouse_pos):
                     running = False
+                    main_game()
 
         update()
         main_clock.tick(fps)
 
 
+def round_start(round):
+    ###Defining fonts###
+    font_text = pygame.font.Font("files/assets/fonts/CFGlitchCity-Regular.ttf", scale_y(200))
+
+    ###Making the texts
+    round_text = font_text.render(f"ROUND {round}", True, red1)
+
+    ###Defining fonts positions on the screen###
+    start_text_pos = (scale_x(960) - round_text.get_width() // 2, (scale_y(540) - round_text.get_height() // 2))
+
+    # Displaying the text
+    screen.blit(round_text, start_text_pos)
+
+
 def main_game():
-    pass
+    screen.fill(black)
+    update()
+
+    round = 1
+
+    running = True
+
+    round_start(round)
+
+    while running:
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                running = False
+                quit()
+
+        update()
+        main_clock.tick(fps)
 
 
 def game():
@@ -492,5 +524,3 @@ def game():
     update()
 
     player_choice()
-
-    main_game()
