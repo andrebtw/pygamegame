@@ -487,11 +487,15 @@ def player_choice():
 
 
 def round_start(round):
+    ### Defining the color ###
+    fading_color = (0, 0, 0)
+    fading_red = 0
+
     ###Defining fonts###
     font_text = pygame.font.Font("files/assets/fonts/CFGlitchCity-Regular.ttf", scale_y(200))
 
     ###Making the texts
-    round_text = font_text.render(f"ROUND {round}", True, red1)
+    round_text = font_text.render(f"ROUND {round}", True, fading_color)
 
     ###Defining fonts positions on the screen###
     start_text_pos = (scale_x(960) - round_text.get_width() // 2, (scale_y(540) - round_text.get_height() // 2))
@@ -499,6 +503,31 @@ def round_start(round):
     # Displaying the text
     screen.blit(round_text, start_text_pos)
 
+    fading = True
+    frames = 0
+
+    fading_red_add = 2
+
+    while fading:
+        fading_red = fading_red + fading_red_add
+        fading_color = (fading_red, 0, 0)
+        frames = frames + scale_fps(1)
+
+        if frames == 120:
+            fading_red_add = 0
+        if frames == 180:
+            fading_red_add = -2
+
+        if fading_red == 0:
+            screen.fill(black)
+            fading = False
+
+        round_text = font_text.render(f"ROUND {round}", True, fading_color)
+
+        screen.blit(round_text, start_text_pos)
+
+        update()
+        main_clock.tick(fps)
 
 def main_game():
     screen.fill(black)
