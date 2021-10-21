@@ -48,8 +48,9 @@ def scale_y(y):
     return y
 
 
-def scale_fps(fps):
-    pass
+def scale_fps(scale_fps):
+    scale_fps = (scale_fps * fps) / 60
+    return scale_fps
 
 
 def update():
