@@ -528,6 +528,13 @@ def round_start(round):
 
         update()
         main_clock.tick(fps)
+        
+        
+        
+        
+        
+class Player:
+    pass
 
 def main_game():
     screen.fill(black)
