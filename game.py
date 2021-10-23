@@ -536,6 +536,13 @@ def round_start(round):
 class Player:
     pass
 
+class Obstacle:
+    pass
+
+class Zombie:
+    pass
+
+
 def main_game():
     screen.fill(black)
     update()
