@@ -7,7 +7,9 @@ import math
 import sys
 import re
 
-data_file = open("files/data/data.txt", "r")  # Opening the data file
+path = "C:/Users/Andr/Downloads/pygamegame-master/"
+
+data_file = open(f"{path}data.txt", "r")  # Opening the data file
 data = data_file.readlines()  # Making a list from every line
 
 pygame.init()
@@ -63,7 +65,7 @@ def audio_settings():
     running = True
 
     ###Defining fonts###
-    neon_font_text = pygame.font.Font("files/assets/fonts/NEON GLOW.otf", scale_y(100))
+    neon_font_text = pygame.font.Font(f"{path}files/assets/fonts/NEON GLOW.otf", scale_y(100))
 
     ###Making the texts
     back_text = neon_font_text.render("BACK", True, (red1))
@@ -108,7 +110,7 @@ def video_settings():
     running = True
 
     ###Defining fonts###
-    neon_font_text = pygame.font.Font("files/assets/fonts/NEON GLOW.otf", scale_y(100))
+    neon_font_text = pygame.font.Font(f"{path}files/assets/fonts/NEON GLOW.otf", scale_y(100))
 
     ###Making the texts
     back_text = neon_font_text.render("BACK", True, (red1))
@@ -155,7 +157,7 @@ def about_settings():
     running = True
 
     ###Defining fonts###
-    neon_font_text = pygame.font.Font("files/assets/fonts/NEON GLOW.otf", scale_y(100))
+    neon_font_text = pygame.font.Font(f"{path}files/assets/fonts/NEON GLOW.otf", scale_y(100))
 
     ###Making the texts
     back_text = neon_font_text.render("BACK", True, (red1))
@@ -201,7 +203,7 @@ def controls_settings():
     running = True
 
     ###Defining fonts###
-    neon_font_text = pygame.font.Font("files/assets/fonts/NEON GLOW.otf", scale_y(100))
+    neon_font_text = pygame.font.Font(f"{path}files/assets/fonts/NEON GLOW.otf", scale_y(100))
 
     ###Making the texts
     back_text = neon_font_text.render("BACK", True, (red1))
@@ -246,7 +248,7 @@ def settings():
     running = True
 
     ###Defining fonts###
-    neon_font_text = pygame.font.Font("files/assets/fonts/NEON GLOW.otf", scale_y(100))
+    neon_font_text = pygame.font.Font(f"{path}files/assets/fonts/NEON GLOW.otf", scale_y(100))
 
     ###Making the texts
     audio_text = neon_font_text.render("AUDIO", True, (red1))
@@ -359,8 +361,8 @@ def settings():
 
 def main():
     ###DEFINING FONTS###
-    neon_font_play = pygame.font.Font("files/assets/fonts/NEON GLOW.otf", scale_x(150))
-    neon_font_settings_exit = pygame.font.Font("files/assets/fonts/NEON GLOW.otf", scale_y(100))
+    neon_font_play = pygame.font.Font(f"{path}files/assets/fonts/NEON GLOW.otf", scale_x(150))
+    neon_font_settings_exit = pygame.font.Font(f"{path}files/assets/fonts/NEON GLOW.otf", scale_y(100))
 
     ###Making the texts###
     text_settings = neon_font_settings_exit.render("SETTINGS", True, (red1))
@@ -445,7 +447,7 @@ def player_choice():
     running = True
 
     ###Defining fonts###
-    neon_font_text = pygame.font.Font("files/assets/fonts/NEON GLOW.otf", scale_y(125))
+    neon_font_text = pygame.font.Font(f"{path}files/assets/fonts/NEON GLOW.otf", scale_y(125))
 
     ###Making the texts
     start_text = neon_font_text.render("START", True, red1)
@@ -492,7 +494,7 @@ def round_start(round):
     fading_red = 0
 
     ###Defining fonts###
-    font_text = pygame.font.Font("files/assets/fonts/CFGlitchCity-Regular.ttf", scale_y(200))
+    font_text = pygame.font.Font(f"{path}files/assets/fonts/CFGlitchCity-Regular.ttf", scale_y(200))
 
     ###Making the texts
     round_text = font_text.render(f"ROUND {round}", True, fading_color)
@@ -528,16 +530,21 @@ def round_start(round):
 
         update()
         main_clock.tick(fps)
-        
-        
-        
-        
-        
+
+
 class Player:
-    pass
+    def __init__(self):
+        self.life = 100
+        self.size = 50, 50
+        self.color = (0, 0, 235)
+
+    def spawn(self):
+        pygame.draw.rect(screen, self.color, (self.size, 50, 50))
+
 
 class Obstacle:
     pass
+
 
 class Zombie:
     pass
@@ -552,6 +559,10 @@ def main_game():
     running = True
 
     round_start(round)
+
+    player = Player()
+
+    player.spawn()
 
     while running:
         for event in pygame.event.get():
