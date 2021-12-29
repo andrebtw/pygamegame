@@ -44,12 +44,15 @@ def update():
 
 class Player:
     def __init__(self):
-        self.life = 100
-        self.size = 50, 50
         self.color = (0, 0, 235)
+        self.life = 100
+        self.sizeY = 50
+        self.sizeX = 50
+        self.positionX = 935
+        self.positionY = 515
 
     def spawn(self):
-        pygame.draw.rect(screen, self.color, (self.size, 50, 50))
+        pygame.draw.rect(screen, self.color, (self.positionX, self.positionY, self.sizeX, self.sizeY))
 
 
 class Obstacle:
