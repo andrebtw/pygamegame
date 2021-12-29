@@ -1,12 +1,12 @@
 #!/usr/bin python3
 
 
-#Importing python files
-from game import main
+# Importing python files
+import game_menu
 
 
 def start():
-    main()
+    game_menu.main_menu()
 
 
 if __name__ == "__main__":
