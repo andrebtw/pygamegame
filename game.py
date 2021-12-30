@@ -12,6 +12,10 @@ import os
 import constants
 import scale
 import rounds
+from player import Player
+from obstacle import Obstacle
+from zombie import Zombie
+from logs import log
 
 # Configuration
 
@@ -42,29 +46,6 @@ def update():
     pygame.display.update()
 
 
-class Player:
-    def __init__(self):
-        self.color = (0, 0, 235)
-        self.life = 100
-        self.sizeY = 50
-        self.sizeX = 50
-        self.positionX = 935
-        self.positionY = 515
-
-    def spawn(self):
-        pygame.draw.rect(screen, self.color, (self.positionX, self.positionY, self.sizeX, self.sizeY))
-
-
-class Obstacle:
-    def __init__(self):
-        pass
-
-
-class Zombie:
-    def __init__(self):
-        pass
-
-
 def main_game():
     screen.fill(constants.black)
     update()
@@ -77,13 +58,51 @@ def main_game():
 
     player = Player()
 
-    player.spawn()
+    moving_up = None
+    moving_down = None
+    moving_left = None
+    moving_right = None
 
     while running:
+
         for event in pygame.event.get():
             if event.type == QUIT:
                 running = False
                 quit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_w:
+                    moving_up = True
+                if event.key == pygame.K_s:
+                    moving_down = True
+                if event.key == pygame.K_a:
+                    moving_left = True
+                if event.key == pygame.K_d:
+                    moving_right = True
 
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_w:
+                    moving_up = False
+                if event.key == pygame.K_s:
+                    moving_down = False
+                if event.key == pygame.K_a:
+                    moving_left = False
+                if event.key == pygame.K_d:
+                    moving_right = False
+
+        print(moving_up)
+        if moving_up:
+            player.move_up()
+
+        if moving_down:
+            player.move_down()
+
+        if moving_left:
+            player.move_left()
+
+        if moving_right:
+            player.move_right()
+
+        screen.fill(constants.black)
+        player.draw()
         update()
         main_clock.tick(fps)
