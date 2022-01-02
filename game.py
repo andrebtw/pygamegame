@@ -89,7 +89,6 @@ def main_game():
                 if event.key == pygame.K_d:
                     moving_right = False
 
-        print(moving_up)
         if moving_up:
             player.move_up()
 
