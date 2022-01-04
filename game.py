@@ -1,12 +1,7 @@
 # Importing libraries
 import pygame
 from pygame.locals import *
-import time
-import random
-import math
-import sys
-import re
-import os
+import json
 
 # Importing files
 import constants
@@ -21,24 +16,29 @@ from logs import log
 
 path = ""
 
-data_file = open(f"{path}files/data/data.txt", "r")  # Opening the data file
-data = data_file.readlines()  # Making a list from every line
-
 pygame.init()
+
 main_clock = pygame.time.Clock()
 
-fps = int(re.sub("[^0-9]", "", data[3]))
+# JSON Files opening
 
-width = int(re.sub("[^0-9]", "", data[1]))  # re.sub("[^0-9]", "",") removes all non numeric characters from the data
-height = int(re.sub("[^0-9]", "", data[2]))
+with open("files/data/settings.json") as jsonSettings:
+    jsonSettingsObject = json.load(jsonSettings)
+    jsonSettings.close()
 
-points = int(re.sub("[^0-9]", "", data[6]))
+with open("files/data/controls.json") as jsonControls:
+    jsonControlsObject = json.load(jsonControls)
+    jsonControls.close()
 
-if "FALSE" in data[0]:
-    fullscreen = False
+fps = jsonSettingsObject['fps']
+
+width = jsonSettingsObject['width']
+height = jsonSettingsObject['height']
+fullscreen = jsonSettingsObject['fullscreen']
+
+if fullscreen == False:
     screen = pygame.display.set_mode((width, height))
 else:
-    fullscreen = True
     screen = pygame.display.set_mode((width, height), pygame.FULLSCREEN)
 
 
@@ -57,48 +57,26 @@ def main_game():
     rounds.round_start(round)
 
     player = Player()
-
-    moving_up = None
-    moving_down = None
-    moving_left = None
-    moving_right = None
-
+    
     while running:
 
         for event in pygame.event.get():
             if event.type == QUIT:
                 running = False
                 quit()
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_w:
-                    moving_up = True
-                if event.key == pygame.K_s:
-                    moving_down = True
-                if event.key == pygame.K_a:
-                    moving_left = True
-                if event.key == pygame.K_d:
-                    moving_right = True
 
-            if event.type == pygame.KEYUP:
-                if event.key == pygame.K_w:
-                    moving_up = False
-                if event.key == pygame.K_s:
-                    moving_down = False
-                if event.key == pygame.K_a:
-                    moving_left = False
-                if event.key == pygame.K_d:
-                    moving_right = False
-
-        if moving_up:
+        pressed_keys = pygame.key.get_pressed()
+        
+        if pressed_keys[jsonControlsObject['move_up']]:
             player.move_up()
 
-        if moving_down:
+        if pressed_keys[jsonControlsObject['move_down']]:
             player.move_down()
 
-        if moving_left:
+        if pressed_keys[jsonControlsObject['move_left']]:
             player.move_left()
 
-        if moving_right:
+        if pressed_keys[jsonControlsObject['move_right']]:
             player.move_right()
 
         screen.fill(constants.black)

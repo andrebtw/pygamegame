@@ -3,8 +3,11 @@ import pygame
 
 # Importing files
 import game
+import scale
+import json
 
-
-class Zombie:
-    def __init__(self):
+class Crosshair:
+    def __init__(self) -> None:
         pass
+
+    
