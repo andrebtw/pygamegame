@@ -11,6 +11,7 @@ from player import Player
 from obstacle import Obstacle
 from zombie import Zombie
 from logs import log
+import ui
 
 # Configuration
 
@@ -57,6 +58,7 @@ def main_game():
     rounds.round_start(round)
 
     player = Player()
+    zombie1 = Zombie(round)
     
     while running:
 
@@ -79,7 +81,18 @@ def main_game():
         if pressed_keys[jsonControlsObject['move_right']]:
             player.move_right()
 
-        screen.fill(constants.black)
+
+        # Logic for zombies to follow the player
+        zombie1.follow(player.positionX, player.positionY)
+
+
+        # Draws the objects on the screen
+        screen.fill(constants.grey1)
+        zombie1.draw()
         player.draw()
+
+        # Draw the UI over the game
+        ui.background()
         update()
+
         main_clock.tick(fps)

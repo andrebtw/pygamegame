@@ -18,3 +18,8 @@ def y(y):
 def fps(scale_fps):
     scaled = (scale_fps * game.fps) / 60
     return scaled
+
+def movement(obj):
+    surface = game.pygame.display.get_surface()  # get the surface of the current active display
+    scaled = (surface.get_width() * obj) / 1920
+    return scaled
